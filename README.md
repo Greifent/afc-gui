@@ -1,6 +1,7 @@
 # afc-gui
 GUI for the asus-fan-control project
 
+# For the testing the file is testing.py and does not require asus-fan-control
 
 # Dependency:
 * asus-fan-control installed
