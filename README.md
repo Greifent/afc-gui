@@ -5,7 +5,6 @@ GUI for the asus-fan-control project
 # Dependency:
 * asus-fan-control installed
 * python3.7
-* GTK+3: install it using `sudo apt install python3-gi python3-gi-cairo gir1.2-gtk-3.0`
 
 # Usage:
 Just dowload the file and execute it:
