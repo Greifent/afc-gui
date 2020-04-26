@@ -162,9 +162,9 @@ class asuswindow(Gtk.Window):
 		dialog.destroy()
 
 #create confirm window
-
-	#def ConfirmTemps(self, widget):
-		#dialogConf = Gtk.Dialog.__init__(
+#class ConfirmTemps(Gtk.Window):
+	#def __init__(self, parent):
+		#Gtk.Dialog.__init__(
 		#	self,
 		#	"Those temperature will be loaded",
 		#	parent,
