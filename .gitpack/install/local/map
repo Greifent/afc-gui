@@ -1,2 +1,2 @@
 afc-gui.py "$HOME"/.local/bin
-temperaturesPreset/ "$HOME"/.local/bin
+temperaturesPreset/ "$HOME"/.local/share/afc-gui
