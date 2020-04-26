@@ -145,46 +145,43 @@ class asuswindow(Gtk.Window):
 		if response == Gtk.ResponseType.OK:
 			self.linkpreset = dialog.get_filename()
 			file = open(dialog.get_filename(), "r")
-			self.preset = file.read()
+			global preset
+			preset = file.read()
 			file.close()
-			
-			#dialogConf = ConfirmTemps(self)
-			#response = dialogConf.run()
+			preset = preset.replace("\n", "")
+			dialogConf = ConfirmTemps(self)
+			response = dialogConf.run()
 
-			#if response == Gtk.ResponseType.OK:
+			if response == Gtk.ResponseType.OK:
 
-				#print("loaded")
-
-			#dialogConf.destroy()
-			sub.call("sudo asus-fan-control set-temps " + self.preset, shell=True)
-
-
-
+				sub.call("sudo asus-fan-control set-temps " + preset, shell=True)
+			dialog.Conf.destroy()
+		
 		dialog.destroy()
 
 #create confirm window
-#class ConfirmTemps(Gtk.Window):
-	#def __init__(self, parent):
-		#Gtk.Dialog.__init__(
-		#	self,
-		#	"Those temperature will be loaded",
-		#	parent,
-			#0,
-			#(
-		#		Gtk.STOCK_CANCEL,
-		#		Gtk.ResponseType.CANCEL,
-		#		Gtk.STOCK_OK,
-		#		Gtk.ResponseType.OK,
-		#	),
-		#)
 
-		#self.set_default_size(150, 100)
+class ConfirmTemps(Gtk.Dialog):
+	def __init__(self, parent):
+		Gtk.Dialog.__init__(
+			self,
+			"Preset",
+			parent,
+			0,
+			(
+				Gtk.STOCK_CANCEL,
+				Gtk.ResponseType.CANCEL,
+				Gtk.STOCK_OK,
+				Gtk.ResponseType.OK,
+			),
+		)
 
-		#label = Gtk.Label(self.preset)
+		self.set_default_size(150, 100)
+		label = Gtk.Label("Those temperatures will be loaded: \n" + preset + " \n")
 
-		#box= self.get_content_area()
-		#box.add(label)
-		#self.show_all()
+		box= self.get_content_area()
+		box.add(label)
+		self.show_all()
 
 #end create confirm window
 
