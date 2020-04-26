@@ -99,7 +99,7 @@ class asuswindow(Gtk.Window):
 
 #end add temperature input
 #==========================================================================================
-#creating buttons		
+#creating buttons
 
 		self.settemps = Gtk.Button("Set custom temps")
 		self.settemps.connect("clicked", self.whensettemps_clicked)
@@ -108,6 +108,10 @@ class asuswindow(Gtk.Window):
 		self.default = Gtk.Button("Set default temperatures")
 		self.default.connect("clicked", self.whendefault_clicked)
 		vbox_right.pack_start(self.default, True, True, 0)
+
+		self.loadfiles = Gtk.Button("Load preset")
+		self.loadfiles.connect("clicked", self.whenloadfiles_clicked)
+		vbox_right.pack_start(self.loadfiles, True, True, 0)
 
 #end creating buttons
 #==========================================================================================
@@ -122,6 +126,67 @@ class asuswindow(Gtk.Window):
 
 	def whendefault_clicked(self, widget):
 		sub.call("sudo asus-fan-control set-temps default", shell=True)
+
+	def whenloadfiles_clicked(self, widget):
+		dialog = Gtk.FileChooserDialog(
+			"Select a .afc file",
+			self,
+			Gtk.FileChooserAction.OPEN,
+			(
+				Gtk.STOCK_CANCEL,
+				Gtk.ResponseType.CANCEL,
+				Gtk.STOCK_OPEN,
+				Gtk.ResponseType.OK,
+			),
+		)
+
+		response = dialog.run()
+
+		if response == Gtk.ResponseType.OK:
+			self.linkpreset = dialog.get_filename()
+			self.preset = sub.check_output("cat " + self.linkpreset, shell=True)
+			self.preset = self.preset.decode("utf-8")
+
+			#dialogConf = ConfirmTemps(self)
+			#response = dialogConf.run()
+
+			#if response == Gtk.ResponseType.OK:
+
+				#print("loaded")
+
+			#dialogConf.destroy()
+			sub.call("sudo asus-fan-control set-temps " + self.preset, shell=True)
+
+
+
+		dialog.destroy()
+
+#create confirm window
+
+	#def ConfirmTemps(self, widget):
+		#dialogConf = Gtk.Dialog.__init__(
+		#	self,
+		#	"Those temperature will be loaded",
+		#	parent,
+			#0,
+			#(
+		#		Gtk.STOCK_CANCEL,
+		#		Gtk.ResponseType.CANCEL,
+		#		Gtk.STOCK_OK,
+		#		Gtk.ResponseType.OK,
+		#	),
+		#)
+
+		#self.set_default_size(150, 100)
+
+		#label = Gtk.Label(self.preset)
+
+		#box= self.get_content_area()
+		#box.add(label)
+		#self.show_all()
+
+#end create confirm window
+
 
 #end of definition for functions called when button pressed
 #==========================================================================================
