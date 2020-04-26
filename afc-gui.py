@@ -144,9 +144,10 @@ class asuswindow(Gtk.Window):
 
 		if response == Gtk.ResponseType.OK:
 			self.linkpreset = dialog.get_filename()
-			self.preset = sub.check_output("cat " + self.linkpreset, shell=True)
-			self.preset = self.preset.decode("utf-8")
-
+			file = open(dialog.get_filename(), "r")
+			self.preset = file.read()
+			file.close()
+			
 			#dialogConf = ConfirmTemps(self)
 			#response = dialogConf.run()
 
