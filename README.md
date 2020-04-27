@@ -1,20 +1,17 @@
 # afc-gui
 GUI for the asus-fan-control project
 
-For the testing the file is testing.py and does not require asus-fan-control
+For the testing the file is testing.py and does not require asus-fan-control, only downloadable using:`git clone https://github.com/Greifent/afc-gui.git`
 
 # Dependency:
 * asus-fan-control installed
 * python3.7
 
 # Usage:
-Just dowload the file and execute it:
-Once the GUI opened you have everything you need: model info, version of asus-fan-control, active temperatures, the option to set custom temperatures or the oprion to reset the default ones.
-
-I will update the GUI with other functionalities in the future
-
-Currently tested on Pop_OS! 19.10, should work with GNOME, not sure with other, fell free to test it.
-
+ * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui.py`.   The preset is located in `~/.local/share/afc-gui/temperaturesPreset`
+ 
+ * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, execute the afc-gui.py.
+ 
 # Photos:
 
 This is the main window
