@@ -30,7 +30,7 @@ def about_fun():
 
 	about = about.replace("\n", " \n")
 
-	about = about.replace("github.com/dominiksalvet/asus-fan-control", '<a href="https://github.com/dominiksalvet/asus-fan-control" title="Click to found more">project page</a>')
+	about = about.replace("github.com/dominiksalvet/asus-fan-control", '<a href="https://github.com/dominiksalvet/asus-fan-control" title="Click to found more">project page</a>')	#create link to asus-fan-control project
 
 	about = "Current version of asus-fan-control running: \n" + about
 
@@ -60,11 +60,11 @@ class asuswindow(Gtk.Window):
 #==========================================================================================
 #setting window dimentions
 
-		Gtk.Window.__init__(self, title="asus-fan-control")
-		Gtk.Window.set_default_size(self, 400, 325)
-		Gtk.Window.set_position(self, Gtk.WindowPosition.CENTER)
+		Gtk.Window.__init__(self, title="asus-fan-control")		#set title
+		Gtk.Window.set_default_size(self, 400, 325)			#set main window dimentions
+		Gtk.Window.set_position(self, Gtk.WindowPosition.CENTER)	#set where the window create: center screen
 
-		hbox = Gtk.Box(spacing=10)
+		hbox = Gtk.Box(spacing=10)					#pixels between buttons
 		hbox.set_homogeneous(False)
 		vbox_left = Gtk.Box(orientation=Gtk.Orientation.VERTICAL, spacing=10)
 		vbox_left.set_homogeneous(False)
@@ -77,15 +77,15 @@ class asuswindow(Gtk.Window):
 #end settind window dimentions
 #==========================================================================================
 #add labels
-		label = Gtk.Label()
+		label = Gtk.Label()						#add label for model info
 		label.set_text(modelinfo_fun())
 		vbox_left.pack_start(label, True, True, 0)
 
-		label = Gtk.Label()
+		label = Gtk.Label()						#add label for about under mode info
 		label.set_markup(about_fun())
 		vbox_left.pack_start(label ,True, True, 0)
 
-		label = Gtk.Label()
+		label = Gtk.Label()						#add label for get temps right to mode info
 		label.set_text(gettemps_fun())
 		vbox_right.pack_start(label, True, True, 0)
 
@@ -93,7 +93,7 @@ class asuswindow(Gtk.Window):
 #==========================================================================================
 #add temperature input
 
-		self.temperatures = Gtk.Entry()
+		self.temperatures = Gtk.Entry()					#input for manual temperature insert
 		self.temperatures.set_text("")
 		vbox_right.pack_start(self.temperatures, True, True, 0)
 
@@ -101,39 +101,39 @@ class asuswindow(Gtk.Window):
 #==========================================================================================
 #creating buttons
 
-		self.settemps = Gtk.Button("Set custom temps")
+		self.settemps = Gtk.Button("Set custom temps")			#create button fot set temps, see comment above for temps
 		self.settemps.connect("clicked", self.whensettemps_clicked)
 		vbox_right.pack_start(self.settemps, True, True, 0)
 
-		self.default = Gtk.Button("Set default temperatures")
+		self.default = Gtk.Button("Set default temperatures")		#create button for default temps
 		self.default.connect("clicked", self.whendefault_clicked)
 		vbox_right.pack_start(self.default, True, True, 0)
 
-		self.loadfiles = Gtk.Button("Load preset")
+		self.loadfiles = Gtk.Button("Load preset")			#create button to load temps from file
 		self.loadfiles.connect("clicked", self.whenloadfiles_clicked)
 		vbox_right.pack_start(self.loadfiles, True, True, 0)
 
 #end creating buttons
 #==========================================================================================
 
-		self.add(hbox)
+		self.add(hbox)							#add label, input, buttons to window
 
 #==========================================================================================
 #definition of funcions called when button press
 
 	def whensettemps_clicked(self, widget):
-		sub.call("sudo asus-fan-control set-temps " + self.temperatures.get_text(), shell=True)
+		sub.call("sudo asus-fan-control set-temps " + self.temperatures.get_text(), shell=True)			#set temps from previous input
 
 	def whendefault_clicked(self, widget):
-		sub.call("sudo asus-fan-control set-temps default", shell=True)
+		sub.call("sudo asus-fan-control set-temps default", shell=True)						#set default temps
 
 	def whenloadfiles_clicked(self, widget):
-		dialog = Gtk.FileChooserDialog(
-			"Select a .afc file",
+		dialog = Gtk.FileChooserDialog(										#create window for file selection
+			"Select a .afc file",										#add title
 			self,
 			Gtk.FileChooserAction.OPEN,
 			(
-				Gtk.STOCK_CANCEL,
+				Gtk.STOCK_CANCEL,									#add Cancel button and Ok button
 				Gtk.ResponseType.CANCEL,
 				Gtk.STOCK_OPEN,
 				Gtk.ResponseType.OK,
@@ -142,46 +142,46 @@ class asuswindow(Gtk.Window):
 
 		response = dialog.run()
 
-		if response == Gtk.ResponseType.OK:
-			self.linkpreset = dialog.get_filename()
-			file = open(dialog.get_filename(), "r")
+		if response == Gtk.ResponseType.OK:									#if file is selected and Ok button is pressed
+			self.linkpreset = dialog.get_filename()								#get file path
+			file = open(dialog.get_filename(), "r")								#open file
 			global preset
-			preset = file.read()
+			preset = file.read()										#read file, save it in preset: a global variable
 			file.close()
 			preset = preset.replace("\n", "")
-			dialogConf = ConfirmTemps(self)
+			dialogConf = ConfirmTemps(self)									#call confirm window, see below
 			response = dialogConf.run()
 
-			if response == Gtk.ResponseType.OK:
+			if response == Gtk.ResponseType.OK:								#if the confirm return is Ok
+				sub.call("sudo asus-fan-control set-temps " + preset, shell=True)			#apply the temperature from the file
 
-				sub.call("sudo asus-fan-control set-temps " + preset, shell=True)
-			dialog.Conf.destroy()
-		
-		dialog.destroy()
+			dialog.Conf.destroy()										#destroy confirm window
+
+		dialog.destroy()											#destroy selection window
 
 #create confirm window
 
 class ConfirmTemps(Gtk.Dialog):
-	def __init__(self, parent):
-		Gtk.Dialog.__init__(
+	def __init__(self, parent):											#create confirm window
+		Gtk.Dialog.__init__(											#add title
 			self,
 			"Preset",
 			parent,
 			0,
 			(
-				Gtk.STOCK_CANCEL,
+				Gtk.STOCK_CANCEL,									#add buttons: Ok and Cancel
 				Gtk.ResponseType.CANCEL,
 				Gtk.STOCK_OK,
 				Gtk.ResponseType.OK,
 			),
 		)
 
-		self.set_default_size(150, 100)
-		label = Gtk.Label("Those temperatures will be loaded: \n" + preset + " \n")
+		self.set_default_size(150, 100)										#set window size
+		label = Gtk.Label("Those temperatures will be loaded: \n" + preset + " \n")				#show loaded temps
 
 		box= self.get_content_area()
 		box.add(label)
-		self.show_all()
+		self.show_all()												#show window, labels and buttons
 
 #end create confirm window
 
