@@ -14,3 +14,17 @@ Once the GUI opened you have everything you need: model info, version of asus-fa
 I will update the GUI with other functionalities in the future
 
 Currently tested on Pop_OS! 19.10, should work with GNOME, not sure with other, fell free to test it.
+
+# Photos:
+
+This is the main window
+
+![](images/MainWind.png)
+
+This is the file selection window
+
+![](images/FileChoose.png)
+
+This is the confirmation window
+
+![](images/Confirm.png)
