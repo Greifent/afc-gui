@@ -155,7 +155,7 @@ class asuswindow(Gtk.Window):
 			if response == Gtk.ResponseType.OK:								#if the confirm return is Ok
 				sub.call("sudo asus-fan-control set-temps " + preset, shell=True)			#apply the temperature from the file
 
-			dialog.Conf.destroy()										#destroy confirm window
+			dialogConf.destroy()										#destroy confirm window
 
 		dialog.destroy()											#destroy selection window
 
