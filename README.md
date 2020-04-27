@@ -7,7 +7,7 @@ For the testing the file is testing.py and does not require asus-fan-control, on
 * asus-fan-control installed
 * python3.7
 
-# Usage:
+# Installation:
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui.py`.   The preset is located in `~/.local/share/afc-gui/temperaturesPreset`
  
  * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, execute the afc-gui.py.
