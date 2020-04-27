@@ -20,7 +20,7 @@ This is the main window
 
 This is the file selection window
 
-![](images/FileChoose.png)
+![](images/FileChooser.png)
 
 This is the confirmation window
 
