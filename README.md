@@ -6,6 +6,7 @@ For the testing the file is testing.py and does not require asus-fan-control, on
 # Dependency:
 * asus-fan-control installed
 * python3.7
+* Reported issue with UBUNTU 18.04 LTS, currently working on it [issue](https://github.com/Greifent/afc-gui/issues/10)
 
 # Installation:
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.   The preset is located in `~/.local/share/afc-gui/temperaturesPreset`
