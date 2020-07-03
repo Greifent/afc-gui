@@ -32,7 +32,7 @@ def about_fun():
 
 	try:
 
-		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDUOT)
+		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDOUT)
 
 		about = about.decode("utf-8")
 
