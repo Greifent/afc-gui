@@ -12,43 +12,61 @@ from gi.repository import Gtk
 #define function for adjusting text
 def modelinfo_fun():
 
-	modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True)
+	try:
 
-	modelinfo = modelinfo.decode("utf-8")
+		modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True, stderr=sub.STDOUT)
 
-	modelinfo = modelinfo.replace("\n", " \n")
+		modelinfo = modelinfo.decode("utf-8")
 
-	modelinfo = "Those are the information of your model: \n" + modelinfo
+		modelinfo = modelinfo.replace("\n", " \n")
 
-	return(modelinfo)
+		modelinfo = "Those are the information of your model: \n" + modelinfo
+
+		return(modelinfo)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get model info")
 
 def about_fun():
 
-	about = sub.check_output("asus-fan-control about", shell=True)
+	try:
 
-	about = about.decode("utf-8")
+		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDUOT)
 
-	about = about.replace("\n", " \n")
+		about = about.decode("utf-8")
 
-	about = about.replace("github.com/dominiksalvet/asus-fan-control", '<a href="https://github.com/dominiksalvet/asus-fan-control" title="Click to found more">project page</a>')	#create link to asus-fan-control project
+		about = about.replace("\n", " \n")
 
-	about = "Current version of asus-fan-control running: \n" + about
+		about = about.replace("github.com/dominiksalvet/asus-fan-control", '<a href="https://github.com/dominiksalvet/asus-fan-control" title="Click to found more">project page</a>')	#create link to asus-fan-control project
 
-	return(about)
+		about = "Current version of asus-fan-control running: \n" + about
+
+		return(about)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get about")
 
 def gettemps_fun():
 
-	gettemps = sub.check_output("sudo asus-fan-control get-temps", shell=True)
+	try:
 
-	gettemps = gettemps.decode("utf-8")
+		gettemps = sub.check_output("sudo asus-fan-control get-temps", shell=True, stderr=sub.STDOUT)
 
-	gettemps = gettemps.replace("\n", " \n")
+		gettemps = gettemps.decode("utf-8")
 
-	gettemps = "Those are the active temperatures: \n" + gettemps
+		gettemps = gettemps.replace("\n", " \n")
 
-	gettemps = gettemps + " \n \n In the following section you can chose to set your own temperatures \n (enter 8 values separed by a space) \n or reimpost the default ones"
+		gettemps = "Those are the active temperatures: \n" + gettemps
 
-	return(gettemps)
+		gettemps = gettemps + " \n \n In the following section you can chose to set your own temperatures \n (enter 8 values separed by a space) \n or reimpost the default ones"
+
+		return(gettemps)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get temperatures")
 
 #end define function for adjusting text
 #==========================================================================================
