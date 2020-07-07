@@ -1,2 +1,2 @@
 prgm/afc-gui "$HOME"/.local/bin
-prgm/MAINGUI.glade "$HOME"/.local/bin
+prgm/MAINGUI.glade "$HOME"
