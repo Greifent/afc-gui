@@ -9,20 +9,12 @@ For the testing the file is testing.py and does not require asus-fan-control, on
 * Reported issue with UBUNTU 18.04 LTS, currently working on it. [issue](https://github.com/Greifent/afc-gui/issues/10)
 
 # Installation:
- * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.   The preset is located in `~/.local/share/afc-gui/temperaturesPreset`
+ * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.
  
  * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, execute the afc-gui
  
-# Photos:
+# Photo:
 
 This is the main window
 
 ![](images/MainWind.png)
-
-This is the file selection window
-
-![](images/FileChooser.png)
-
-This is the confirmation window
-
-![](images/Confirm.png)
