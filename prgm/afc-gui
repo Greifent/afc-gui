@@ -1,0 +1,133 @@
+#!/usr/bin/env python3
+
+import subprocess as sub
+
+import gi
+
+gi.require_version("Gtk", "3.0")
+
+from gi.repository import Gtk
+
+#==========================================================================================
+#define function for adjusting text
+def modelinfo_fun():
+
+	try:
+
+		modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True, stderr=sub.STDOUT)
+
+		modelinfo = modelinfo.decode("utf-8")
+
+		modelinfo = modelinfo.replace("\n", " \n")
+
+		modelinfo = "Those are the information of your model: \n" + modelinfo
+
+		return(modelinfo)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get model info")
+
+def about_fun():
+
+	try:
+
+		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDOUT)
+
+		about = about.decode("utf-8")
+
+		about = about.replace("\n", " \n")
+
+		#about = about.replace("github.com/dominiksalvet/asus-fan-control", '<a href="https://github.com/dominiksalvet/asus-fan-control" title="Click to found more">project page</a>')	#create link to asus-fan-control project
+
+		about = "Current version of asus-fan-control running: \n" + about
+
+		return(about)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get about")
+
+def gettemps_fun():
+
+	try:
+
+		gettemps = sub.check_output("sudo asus-fan-control get-temps", shell=True, stderr=sub.STDOUT)
+
+		gettemps = gettemps.decode("utf-8")
+
+		gettemps = gettemps.replace("\n", " \n")
+
+		gettemps = "Those are the active temperatures: \n" + gettemps
+
+		gettemps = gettemps + " \n \n In the following section you can chose to set your own temperatures \n (enter 8 values separed by a space) \n or reimpost the default ones"
+
+		return(gettemps)
+
+	except sub.CalledProcessError:
+
+		return("Error, cannot get temperatures")
+
+#end define function for adjusting text
+#==========================================================================================
+
+class Handler:
+
+	def customtemps(self, button):
+		whensettemps_clicked(self, button)
+
+	def defaulttemps(self, button):
+		whendefault_clicked(self, button)
+
+#==========================================================================================
+
+builder = Gtk.Builder()
+builder.add_from_file("MAINGUI.glade")
+builder.connect_signals(Handler())
+
+custom = builder.get_object("custom")
+custom.set_label("Set custom temps")
+
+default = builder.get_object("default")
+default.set_label("Set default temps")
+
+modelinfo = builder.get_object("modelinfo")
+modelinfo.set_label(modelinfo_fun())
+
+about = builder.get_object("about")
+about.set_label(about_fun())
+
+active = builder.get_object("active")
+active.set_label(gettemps_fun())
+
+#==========================================================================================
+#definition of funcions called when button press
+
+def whensettemps_clicked(self, button):
+
+	inputtemps = builder.get_object("inputtemps")
+	inputtemps = inputtemps.get_text()
+
+	cmd = "sudo asus-fan-control set-temps " + inputtemps
+
+	sub.call(cmd, shell=True)			#set temps from previous input
+
+def whendefault_clicked(self, button):
+	sub.call("sudo asus-fan-control set-temps default", shell=True)						#set default temps
+
+#class whenloadfiles_clicked:
+                                                      
+#end of definition for functions called when button pressed
+#==========================================================================================
+
+#==========================================================================================
+#open window
+
+window = builder.get_object("GtkWindow")
+
+window.connect("delete-event", Gtk.main_quit)
+window.show_all()
+Gtk.main()
+
+#close window
+#==========================================================================================

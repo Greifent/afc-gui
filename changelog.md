@@ -2,6 +2,14 @@
 
  * modify file with preset, change UI: add top menu
 
+# 07-07-2020: Version 1.2.0
+
+ * removed option to load preset from file (It will be most probably reimplemented in a future update)
+
+ * organised mail directory
+
+ * now using glade to create the window
+
 # 27-04-2020: Version 1.1.0
 
  * added confirm screen to set custom temps from file

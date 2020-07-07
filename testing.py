@@ -8,11 +8,22 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+UI_INFO = """
+<ui>
+ <menubar name='MenuBar'>
+  <menu action='Help'>
+   <menuitem action='HelpGUI' />
+   <menuitem action='HelpAFC' />
+  </menu>
+ </menubar>
+</ui>
+
+"""
 #==========================================================================================
 #define function for adjusting text
 #def modelinfo_fun():
 
-#	modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True)
+#	modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True, stderr=subpreocess.STDOUT)
 
 #	modelinfo = modelinfo.decode("utf-8")
 
@@ -21,6 +32,7 @@ from gi.repository import Gtk
 #	modelinfo = "Those are the information of your model: \n" + modelinfo
 
 #	return(modelinfo)
+
 
 #def about_fun():
 
@@ -61,8 +73,9 @@ class asuswindow(Gtk.Window):
 #setting window dimentions
 
 		Gtk.Window.__init__(self, title="asus-fan-control")		#set title
-		Gtk.Window.set_default_size(self, 400, 325)			#set main window dimentions
-		Gtk.Window.set_position(self, Gtk.WindowPosition.CENTER)	#set where the window create: center screen
+
+		self.set_default_size(400, 325)				#set main window dimentions
+		self.set_position(Gtk.WindowPosition.CENTER)		#set where the window create: center screen
 
 		hbox = Gtk.Box(spacing=10)					#pixels between buttons
 		hbox.set_homogeneous(False)
@@ -162,6 +175,22 @@ class asuswindow(Gtk.Window):
 
 		dialog.destroy()											#destroy selection window
 
+
+	def add_help_menu_actions(self, action_group):
+		action_group.add_actions(
+			[
+				("HelpGUI", None, self.help_GUI),
+				("HelpAFC", None, self.help_AFC),
+			]
+		)
+
+
+	def help_GUI(self, widget):
+		print("Help GUI")
+
+	def help_AFC(self, widget):
+		print("Help AFC")
+
 #create confirm window
 
 class ConfirmTemps(Gtk.Dialog):
@@ -187,8 +216,6 @@ class ConfirmTemps(Gtk.Dialog):
 		self.show_all()												#show window, labels and buttons
 
 #end create confirm window
-
-
 #end of definition for functions called when button pressed
 #==========================================================================================
 #open window

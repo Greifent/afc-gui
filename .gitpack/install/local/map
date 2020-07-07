@@ -1,2 +1,2 @@
-afc-gui "$HOME"/.local/bin
-temperaturesPreset/ "$HOME"/.local/share/afc-gui
+prgm/afc-gui "$HOME"/.local/bin
+prgm/MAINGUI.glade "$HOME"/.local/bin
