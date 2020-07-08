@@ -2,6 +2,10 @@
 
  * modify file with preset, change UI: add top menu
 
+# 28-07-2020: Version 1.2.1
+
+ * fixed error with MAINGUI.glade file
+
 # 07-07-2020: Version 1.2.0
 
  * removed option to load preset from file (It will be most probably reimplemented in a future update)
