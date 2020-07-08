@@ -8,6 +8,8 @@ gi.require_version("Gtk", "3.0")
 
 from gi.repository import Gtk
 
+import os
+
 #==========================================================================================
 #define function for adjusting text
 def modelinfo_fun():
@@ -70,6 +72,7 @@ def gettemps_fun():
 
 #end define function for adjusting text
 #==========================================================================================
+#Class to handle buttons
 
 class Handler:
 
@@ -79,10 +82,20 @@ class Handler:
 	def defaulttemps(self, button):
 		whendefault_clicked(self, button)
 
+#End class to handle buttons
 #==========================================================================================
+#Get .glade file path
+
+pathhome = os.environ['HOME']
+
+pathglade = pathhome + "/MAINGUI.glade"
+
+#End get file path
+#==========================================================================================
+#Open .glade file and set labels
 
 builder = Gtk.Builder()
-builder.add_from_file("MAINGUI.glade")
+builder.add_from_file(pathglade)
 builder.connect_signals(Handler())
 
 custom = builder.get_object("custom")
@@ -100,6 +113,7 @@ about.set_label(about_fun())
 active = builder.get_object("active")
 active.set_label(gettemps_fun())
 
+#End open ad apply labels
 #==========================================================================================
 #definition of funcions called when button press
 
@@ -115,8 +129,6 @@ def whensettemps_clicked(self, button):
 def whendefault_clicked(self, button):
 	sub.call("sudo asus-fan-control set-temps default", shell=True)						#set default temps
 
-#class whenloadfiles_clicked:
-                                                      
 #end of definition for functions called when button pressed
 #==========================================================================================
 
