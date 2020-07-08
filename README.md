@@ -11,7 +11,7 @@ For the testing the file is testing.py and does not require asus-fan-control, on
 # Installation:
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.
  
- * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, execute the afc-gui
+ * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, move the MAINGUI.glade file in to the home directory, execute the afc-gui
  
 # Photo:
 
