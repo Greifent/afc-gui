@@ -2,7 +2,13 @@
 
  * modify file with preset, change UI: add top menu
 
-# 28-07-2020: Version 1.2.1
+# 21-07-2020: Version 1.2.2
+
+ * Added help button
+
+ * Removed usless functions
+
+# 08-07-2020: Version 1.2.1
 
  * fixed error with MAINGUI.glade file
 
