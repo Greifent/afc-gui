@@ -8,7 +8,7 @@ import gi
 
 gi.require_version("Gtk", "3.0")
 
-from gi.repository import Gtk
+from gi.repository import Gtk, GLib
 
 import os
 
@@ -85,16 +85,18 @@ class Handler:
 		cmd = "sudo asus-fan-control set-temps " + inputtemps
 
 		sub.call(cmd, shell=True)			#set temps from previous input
+		
+		updateTemps()
 
 	def defaulttemps(self, button):
-		sub.call("sudo asus-fan-control set-temps default", shell=True)						#set default temps
+		sub.call("sudo asus-fan-control set-temps default", shell=True)		#set default temps
+		updateTemps()
 
 	def helppressed(self, button):
 		wb.open_new_tab('https://github.com/dominiksalvet/asus-fan-control/wiki')
 
 #End class to handle buttons
 #==========================================================================================
-
 # Change .glade path if testing or not
 
 testing = False
@@ -102,13 +104,19 @@ testing = False
 if testing:
 
 	pathglade = "/home/riccardo/gitRepository/afc-gui/prgm/MAINGUI.glade"
-	print ("True")
 else:
 	pathhome = os.environ['HOME']
 
 	pathglade = pathhome + "/.local/bin/MAINGUI.glade"
-	print ("False")
 
+#==========================================================================================
+#Function to update temperatures
+
+def updateTemps():
+	activeLabel = gettemps_fun()
+	active.set_label(activeLabel)
+	print(activeLabel)
+	
 #==========================================================================================
 #Open .glade file and set labels
 
@@ -129,7 +137,7 @@ about = builder.get_object("about")
 about.set_label(about_fun())
 
 active = builder.get_object("active")
-active.set_label(gettemps_fun())
+updateTemps()
 
 help = builder.get_object("help")
 help.set_label("Open project wiki page")

@@ -2,6 +2,10 @@
 
  * modify file with preset, change UI: add top menu
 
+# 25-07-2020: Version 1.2.3
+
+ * Active temperatures are updated when temperatures are changed
+
 # 21-07-2020: Version 1.2.2
 
  * Added help button
@@ -16,7 +20,7 @@
 
  * removed option to load preset from file (It will be most probably reimplemented in a future update)
 
- * organised mail directory
+ * organised main directory
 
  * now using glade to create the window
 
