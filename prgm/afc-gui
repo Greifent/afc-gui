@@ -115,7 +115,7 @@ else:
 def updateTemps():
 	activeLabel = gettemps_fun()
 	active.set_label(activeLabel)
-	print(activeLabel)
+
 	
 #==========================================================================================
 #Open .glade file and set labels
