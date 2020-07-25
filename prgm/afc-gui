@@ -94,13 +94,21 @@ class Handler:
 
 #End class to handle buttons
 #==========================================================================================
-#Get .glade file path
 
-pathhome = os.environ['HOME']
+# Change .glade path if testing or not
 
-pathglade = pathhome + "/MAINGUI.glade"
+testing = False
 
-#End get file path
+if testing:
+
+	pathglade = "/home/riccardo/gitRepository/afc-gui/prgm/MAINGUI.glade"
+	print ("True")
+else:
+	pathhome = os.environ['HOME']
+
+	pathglade = pathhome + "/.local/bin/MAINGUI.glade"
+	print ("False")
+
 #==========================================================================================
 #Open .glade file and set labels
 
