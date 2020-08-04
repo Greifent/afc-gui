@@ -6,7 +6,7 @@ import webbrowser as wb
 
 import gi
 
-gi.require_version("Gtk", "3.0")
+gi.require_version('Gtk', '3.0')
 
 from gi.repository import Gtk, GLib
 
@@ -42,7 +42,7 @@ def about_fun():
 
 		about = about.replace("\n", " \n")
 
-		about = about.replace("github.com/dominiksalvet/asus-fan-control", "")	#create link to asus-fan-control project
+		about = about.replace("github.com/dominiksalvet/asus-fan-control", "")
 
 		about = "Current version of asus-fan-control running: \n" + about
 
@@ -64,8 +64,6 @@ def gettemps_fun():
 
 		gettemps = "Those are the active temperatures: \n" + gettemps
 
-		gettemps = gettemps + " \n \n In the following section you can chose to set your own temperatures \n (enter 8 values separed by a space) \n or reimpost the default ones"
-
 		return(gettemps)
 
 	except sub.CalledProcessError:
@@ -85,7 +83,7 @@ class Handler:
 		cmd = "sudo asus-fan-control set-temps " + inputtemps
 
 		sub.call(cmd, shell=True)			#set temps from previous input
-		
+
 		updateTemps()
 
 	def defaulttemps(self, button):
@@ -116,13 +114,31 @@ def updateTemps():
 	activeLabel = gettemps_fun()
 	active.set_label(activeLabel)
 
-	
+#==========================================================================================
+#Function to show live temperature
+
+def liveTemp_fun():
+	liveTemp = 1 #?
+
+	return liveTemp
+
+#==========================================================================================
+
+
+
+
 #==========================================================================================
 #Open .glade file and set labels
+
+
 
 builder = Gtk.Builder()
 builder.add_from_file(pathglade)
 builder.connect_signals(Handler())
+
+window = builder.get_object("GtkWindow")
+
+notebook = builder.get_object('notebook1')
 
 custom = builder.get_object("custom")
 custom.set_label("Set custom temps")
@@ -139,18 +155,19 @@ about.set_label(about_fun())
 active = builder.get_object("active")
 updateTemps()
 
+customtempsinfo = builder.get_object("customtempsinfo")
+customtempsinfo.set_label("In the following section you can choose to set your own temperatures \n (enter 8 values separed by a space and press Set custom temps) \n or reimpost the default ones")
+
 help = builder.get_object("help")
 help.set_label("Open project wiki page")
 
 #End open ad apply labels
 #==========================================================================================
-
 #open window
-
-window = builder.get_object("GtkWindow")
 
 window.connect("delete-event", Gtk.main_quit)
 window.show_all()
+notebook.set_current_page(0)
 Gtk.main()
 
 #close window

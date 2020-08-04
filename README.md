@@ -1,8 +1,6 @@
 # afc-gui
 GUI for the asus-fan-control project
 
-For the testing the file is testing.py and does not require asus-fan-control, only downloadable using:`git clone https://github.com/Greifent/afc-gui.git`
-
 # Dependency:
 * asus-fan-control installed
 * python3.7
@@ -11,10 +9,10 @@ For the testing the file is testing.py and does not require asus-fan-control, on
 # Installation:
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.
  
- * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, move the MAINGUI.glade file in to the home directory, execute the afc-gui
+ * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, move all the file to ~/.local/bin , execute the afc-gui
  
 # Photo:
 
-This is the main window
+This is the main page
 
-![](images/MainWind.png)
+![](images/Mainpage.png)

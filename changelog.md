@@ -1,6 +1,10 @@
 # To do:
 
- * modify file with preset, change UI: add top menu
+ * Show live temperature, allow user to set fan at a fixed speed (100%; 75%; ...)
+
+# 04-08-2020: Version 1.3.0
+
+ * New GUI, removed testing.py
 
 # 25-07-2020: Version 1.2.3
 
