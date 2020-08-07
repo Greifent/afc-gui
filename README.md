@@ -16,3 +16,11 @@ GUI for the asus-fan-control project
 This is the main page
 
 ![](images/Mainpage.png)
+
+This is the info page
+
+![](images/Infopc.png)
+
+This is the about page
+
+![](images/About.png)
