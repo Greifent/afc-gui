@@ -1,6 +1,10 @@
 # To do:
 
- * Show live temperature, allow user to set fan at a fixed speed (100%; 75%; ...)
+ * Show live temperature
+
+# ?-12-2020: Version 1.4.0
+
+ * Added presets (100%, 75%, ...), changed installation from local to global
 
 # 04-08-2020: Version 1.3.0
 
@@ -14,7 +18,7 @@
 
  * Added help button
 
- * Removed usless functions
+ * Removed useless functions
 
 # 08-07-2020: Version 1.2.1
 
@@ -22,9 +26,9 @@
 
 # 07-07-2020: Version 1.2.0
 
- * removed option to load preset from file (It will be most probably reimplemented in a future update)
+ * removed option to load preset from file (It will be most probably re-implemented in a future update)
 
- * organised main directory
+ * organized main directory
 
  * now using glade to create the window
 
@@ -39,4 +43,4 @@ currently working on a confirm screen, now it will only load them without the po
 
 # 25-04-2020: Version 1.0.0
 
- * First relase
+ * First release

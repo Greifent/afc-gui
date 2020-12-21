@@ -5,14 +5,16 @@ Note: I'm quite busy right now, update will resume as soon as possible
 
 # Dependency:
 * asus-fan-control installed
-* python3.7
+* python3
 * Reported issue with UBUNTU 18.04 LTS, currently working on it. [issue](https://github.com/Greifent/afc-gui/issues/10)
 
 # Installation:
- * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui`.
- 
- * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate to the cloned directory, move all the file to ~/.local/bin , execute the afc-gui
- 
+ * If you have a previous version installed delete afc-gui and MAINGUI.glade from ~/.local/bin/ and then install using one of the methods below
+
+ * Using [GitPack](https://github.com/dominiksalvet/gitpack): `gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui` or look for afc-gui in your launcher.
+
+ * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate afc-gui/prgm/, move afc-gui and MAINGUI.glade to /usr/bin/ and afc-gui.desktop to /usr/share/applications/, execute the afc-gui or look for afc-gui in the launcher of your distribution
+
 # Photo:
 
 This is the main page
