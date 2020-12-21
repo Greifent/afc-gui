@@ -86,12 +86,12 @@ modelinfo = modelinfo.replace(" \n ", "")
 #This whole thing could be completely useless, since the default temp fluctuate a lot between the models, see github.com/dominiksalvet/asus-fan-control/blob/master/data/models for reference
 #before submitting to github see what dominiksalvet has to say about this.
 
-xThreeQuarter = modelinfo[-6:]				#Take only the last x characters of modelinfo (for the last two numbers is -6: it give " 81 85")
+xThreeQuarter = modelinfo[-8:]				#Take only the last x characters of modelinfo (for the last two numbers is -8: it give " 81 85")
 threequarter = threequarter + xThreeQuarter	#Add those x characters to threequarter to complete the presets
-#Now half and onequarter will be complete as before (for half x=12, and for onequarter x=18 (add 6 for each interval))
-xHalf = modelinfo[-12:]
+#Now half and onequarter will be complete as before (for half x=14, and for onequarter x=20 (add 6 for each interval))
+xHalf = modelinfo[-14:]
 half = half + xHalf
-xOneQuarter = modelinfo[-18:]
+xOneQuarter = modelinfo[-20:]
 onequarter = onequarter + xOneQuarter
 
 #==========================================================================================

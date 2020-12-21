@@ -2,7 +2,7 @@
 
  * Show live temperature
 
-# ?-12-2020: Version 1.4.0
+# 21-12-2020: Version 1.4.2
 
  * Added presets (100%, 75%, ...), changed installation from local to global
 
