@@ -17,6 +17,10 @@ Note: I'm quite busy right now, update will resume as soon as possible
 
 # Photo:
 
+This is the preset page
+
+![](images/Preset.png)
+
 This is the main page
 
 ![](images/Mainpage.png)
