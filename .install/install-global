@@ -1,0 +1,14 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------------
+# Copyright 2021 Greifent
+# https://github.com/Greifent/afc-gui
+#--------------------------------------------------------------------------
+
+echo 'making directories'
+mkdir /usr/share/afc-gui
+
+echo 'copying files'
+cp prgm/afc-gui /usr/bin
+cp prgm/MAINGUI.glade /usr/share/afc-gui
+cp prgm/afc-gui.desktop /usr/share/applications

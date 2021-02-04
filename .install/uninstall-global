@@ -1,0 +1,11 @@
+#!/bin/sh
+
+#--------------------------------------------------------------------------
+# Copyright 2021 Greifent
+# https://github.com/Greifent/afc-gui
+#--------------------------------------------------------------------------
+
+echo 'removing files and directories'
+rm /usr/bin/afc-gui
+rm -r /usr/share/afc-gui
+rm /usr/share/applications/afc-gui.desktop
