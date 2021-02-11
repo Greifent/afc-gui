@@ -2,6 +2,10 @@
 
  * Show live temperature
 
+# 11-02-2020: Version 1.4.3
+
+ * Updated with support for GitPack 1.0.0
+
 # 21-12-2020: Version 1.4.2
 
  * Added presets (100%, 75%, ...), changed installation from local to global
