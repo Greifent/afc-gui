@@ -2,6 +2,7 @@
 
 import subprocess as sub
 import webbrowser as wb
+import time
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
@@ -9,7 +10,6 @@ import os
 
 #=========================================================================================
 #define presets
-
 full = "20 21 22 23 24 25 26 27"
 threequarter = "20 21 22 23 24 25"			#Some presets will be comleted depending on the model of the laptop
 half = "20 21 22 23"
@@ -132,15 +132,36 @@ class Handler:
 
 def updateTemps():
 	activeLabel = gettemps_fun()
+	presetlabel()
 	active.set_label(activeLabel)
 
 #==========================================================================================
 #Function that sets the temperature
 
 def setTemps(temperatures):
+	updateTemps()
 	command = "sudo asus-fan-control set-temps " + temperatures
 	sub.call(command, shell=True)
-	updateTemps()
+
+
+#==========================================================================================
+#Get CPU temperature and handle the check
+#There is most likely a better way to do this and to update it every second or so, rn its updating every time
+#there is a change in the temperature preset, if you have any idea let me know
+
+def cpuTemps():
+	try:
+		cpuTemp = sub.check_output("get_current_cpu_temp", shell=True, stderr=sub.STDOUT)
+		cpuTemp = cpuTemp.decode()																	#the sub call gives the values in bites, this transofr them in to strings
+		cpuTemp = cpuTemp.split()
+		return(cpuTemp[2])																			#gives temp in celsius
+		print(cpuTemp[2])
+	except:
+		return("Cannot get CPU current temps")
+
+
+def presetlabel():
+	preset.set_label("Here you can select a preset \n(note that if the temperature is more than 85°C the fan will go to 100%). \n\n The current CPU temperature is: " + cpuTemps() + "°C")
 
 #==========================================================================================
 #Open .glade file and set labels
@@ -165,6 +186,9 @@ modelinfo.set_label(modelinfo_fun())
 about = builder.get_object("about")
 about.set_label(about_fun())
 
+preset = builder.get_object("preset")
+presetlabel()
+
 active = builder.get_object("active")
 updateTemps()
 
@@ -173,10 +197,6 @@ customtempsinfo.set_label("In the following section you can choose to set your o
 
 help = builder.get_object("help")
 help.set_label("Open project wiki page")
-
-preset = builder.get_object("preset")
-preset.set_label("Here you can select a preset \n(note that if the temperature is more than 85°C the fan will go to 100%).")
-
 
 #End open ad apply labels
 #==========================================================================================

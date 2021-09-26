@@ -2,6 +2,10 @@
 
  * Show live temperature
 
+# 26-09-2021: Version 1.5
+
+ * Added the first version of a CPU temperature, it updates only when a change on the preset is done for now
+
 # 11-02-2020: Version 1.4.3
 
  * Updated with support for GitPack 1.0.0
