@@ -1,8 +1,6 @@
 # afc-gui
 GUI for the asus-fan-control project
 
-Note: I'm quite busy right now, update will resume as soon as possible
-
 # Dependency:
 * asus-fan-control installed
 * python3
