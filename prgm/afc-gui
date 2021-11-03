@@ -48,7 +48,7 @@ def about_fun():
 		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDOUT)
 		about = about.decode("utf-8")
 		about = about.replace("\n", " \n")
-		about = about.replace("github.com/dominiksalvet/asus-fan-control", "")
+		about = about.replace("https://github.com/dominiksalvet/asus-fan-control", "")
 		about = "Current version of asus-fan-control running: \n" + about
 		return(about)
 
