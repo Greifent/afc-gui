@@ -88,7 +88,7 @@ modelinfo = modelinfo.replace(" \n ", "")
 
 xThreeQuarter = modelinfo[-8:]				#Take only the last x characters of modelinfo (for the last two numbers is -8: it give " 81 85")
 threequarter = threequarter + xThreeQuarter	#Add those x characters to threequarter to complete the presets
-#Now half and onequarter will be complete as before (for half x=14, and for onequarter x=20 (add 6 for each interval))
+											#Now half and onequarter will be complete as before (for half x=14, and for onequarter x=20 (add 6 for each interval))
 xHalf = modelinfo[-14:]
 half = half + xHalf
 xOneQuarter = modelinfo[-20:]
@@ -102,14 +102,17 @@ class Handler:
 	def customtemps(self, button):
 		inputtemps = builder.get_object("inputtemps")
 		inputtemps = inputtemps.get_text()
-		if len(inputtemps) == 23:						#Check if the lenght of inputtemps is equal to 23 send those values to setTemps()
-			setTemps(inputtemps)						#That condition may be changed to only accept valid values, now it is to the end user to insert valid values
+		if validInput(inputtemps):								#Check if the lenght of inputtemps is equal to 23 send those values to setTemps()
+			setTemps(inputtemps)								#That condition may be changed to only accept valid values, now it is to the end user to insert valid values
 
 	def defaulttemps(self, button):
 		setTemps("default")
 
-	def helppressed(self, button):
+	def help_afc_pressed(self, button):
 		wb.open_new_tab('https://github.com/dominiksalvet/asus-fan-control/wiki')
+	
+	def help_gui_pressed(self, button):
+		wb.open_new_tab('https://github.com/Greifent/afc-gui/wiki')
 
 	def full(self, button):
 		setTemps(full)
@@ -126,7 +129,23 @@ class Handler:
 	def off(self, button):
 		setTemps(off)
 
+
 #End class to handle buttons
+#==========================================================================================
+#check that user input temperatures are valid
+def validInput(userInput):
+	userInput = userInput.split()
+	if len(userInput) != 8: return False
+	print(len(userInput))
+	for i in range(len(userInput)):
+		print(i)
+		try:
+			int(userInput[i])
+		except:
+			return False
+	return True
+
+
 #==========================================================================================
 #Function to update temperatures label
 
@@ -148,14 +167,13 @@ def setTemps(temperatures):
 #Get CPU temperature and handle the check
 #There is most likely a better way to do this and to update it every second or so, rn its updating every time
 #there is a change in the temperature preset, if you have any idea let me know
-
 def cpuTemps():
 	try:
 		cpuTemp = sub.check_output("get_current_cpu_temp", shell=True, stderr=sub.STDOUT)
 		cpuTemp = cpuTemp.decode()																	#the sub call gives the values in bites, this transofr them in to strings
 		cpuTemp = cpuTemp.split()
 		return(cpuTemp[2])																			#gives temp in celsius
-		print(cpuTemp[2])
+		#print(cpuTemp[2])
 	except:
 		return("Cannot get CPU current temps")
 
@@ -171,6 +189,7 @@ builder.add_from_file(pathglade)
 builder.connect_signals(Handler())
 
 window = builder.get_object("GtkWindow")
+dialog = builder.get_object("GtkMessageDialog")
 
 notebook = builder.get_object('notebook1')
 
@@ -195,8 +214,11 @@ updateTemps()
 customtempsinfo = builder.get_object("customtempsinfo")
 customtempsinfo.set_label("In the following section you can choose to set your own temperatures \n (enter 8 values, in celsius, separed by a space and press Set custom temps) \n or reimpost the default ones")
 
-help = builder.get_object("help")
-help.set_label("Open project wiki page")
+help_afc = builder.get_object("help-afc")
+help_afc.set_label("Open asus-fan-control wiki page")
+
+help_gui = builder.get_object("help-gui")
+help_gui.set_label("Open afc-gui wiki page")
 
 #End open ad apply labels
 #==========================================================================================
