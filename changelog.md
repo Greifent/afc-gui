@@ -1,6 +1,6 @@
-# To do:
+# 07-02-2022: Version 1.5.1
 
- * Show live temperature
+ * Temperature is updated every 5 seconds
 
 # 26-09-2021: Version 1.5
 

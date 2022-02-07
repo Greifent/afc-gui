@@ -2,7 +2,6 @@
 
 import subprocess as sub
 import webbrowser as wb
-import time
 import gi
 gi.require_version('Gtk', '3.0')
 from gi.repository import Gtk, GLib
@@ -11,7 +10,7 @@ import os
 #=========================================================================================
 #define presets
 full = "20 21 22 23 24 25 26 27"
-threequarter = "20 21 22 23 24 25"			#Some presets will be comleted depending on the model of the laptop
+threequarter = "20 21 22 23 24 25"			#Some presets will be completed depending on the model of the laptop
 half = "20 21 22 23"
 onequarter = "20 21"
 off = "85 86 87 88 89 90 91 92"
@@ -173,7 +172,6 @@ def cpuTemps():
 		cpuTemp = cpuTemp.decode()																	#the sub call gives the values in bites, this transofr them in to strings
 		cpuTemp = cpuTemp.split()
 		return(cpuTemp[2])																			#gives temp in celsius
-		#print(cpuTemp[2])
 	except:
 		return("Cannot get CPU current temps")
 
@@ -181,6 +179,10 @@ def cpuTemps():
 def presetlabel():
 	preset.set_label("Here you can select a preset \n(note that if the temperature is more than 85°C the fan will go to 100%). \n\n The current CPU temperature is: " + cpuTemps() + "°C")
 
+
+def refresh(dummy):
+	presetlabel()
+	return True
 #==========================================================================================
 #Open .glade file and set labels
 
@@ -219,6 +221,10 @@ help_afc.set_label("Open asus-fan-control wiki page")
 
 help_gui = builder.get_object("help-gui")
 help_gui.set_label("Open afc-gui wiki page")
+
+refresh(None)
+
+GLib.timeout_add(5000, refresh, None)
 
 #End open ad apply labels
 #==========================================================================================
