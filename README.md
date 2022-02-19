@@ -12,7 +12,7 @@ GUI for the asus-fan-control project
 
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `sudo gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui` or look for afc-gui in your launcher.
 
- * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate afc-gui/prgm/, move afc-gui and MAINGUI.glade to /usr/bin/ and afc-gui.desktop to /usr/share/applications/, execute the afc-gui or look for afc-gui in the launcher of your distribution
+ * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate afc-gui/prgm/, move afc-gui to `/usr/bin/` the MAINGUI.glade to `/usr/share/afc-gui` (you will have to create the afc-gui folder) and afc-gui.desktop to `/usr/share/applications/`, execute the afc-gui or look for afc-gui in the launcher of your distribution
 
 # Photo:
 
