@@ -4,7 +4,6 @@ GUI for the asus-fan-control project
 # Dependency:
 * asus-fan-control installed
 * python3
-* Reported issue with UBUNTU 18.04 LTS, currently working on it. [issue](https://github.com/Greifent/afc-gui/issues/10)
 * For the current CPU temperature CPU-temperature-monitor is required, you can install it via `sudo pip3 install CPU-temperature-monitor`.
 
 # Installation:
