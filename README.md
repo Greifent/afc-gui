@@ -4,7 +4,7 @@ GUI for the asus-fan-control project
 # Dependency:
 * asus-fan-control installed
 * python3
-* For the current CPU temperature CPU-temperature-monitor is required, you can install it via `sudo pip3 install CPU-temperature-monitor`.
+* For the current CPU temperature [CPU-temperature-monitor](https://github.com/urosjevremovic/CPU_temperature_checker) is required, you can install it via `sudo pip3 install CPU-temperature-monitor`.
 
 # Installation:
  * If you have a previous version installed delete afc-gui and MAINGUI.glade from ~/.local/bin/ and then install using one of the methods below
