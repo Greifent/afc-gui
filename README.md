@@ -10,7 +10,24 @@ GUI for the asus-fan-control project
 
  * Using [GitPack](https://github.com/dominiksalvet/gitpack): `sudo gitpack install https://github.com/Greifent/afc-gui.git`, then just type in the terminal `afc-gui` or look for afc-gui in your launcher.
 
- * Using git clone: `git clone https://github.com/Greifent/afc-gui.git`, navigate afc-gui/src/, move afc-gui to `/usr/bin/` the afc-gui-gtk4.ui to `/usr/share/afc-gui` (you will have to create the afc-gui folder) and afc-gui.desktop to `/usr/share/applications/`, run afc-gui in a terminal or look for afc-gui in the launcher of your distribution
+ * Manual installation:
+ 
+To install just run these commands
+```
+git clone https://github.com/Greifent/afc-gui.git
+cd afc-gui/src/
+sudo cp afc-gui /usr/bin/
+sudo mkdir /usr/share/afc-gui
+sudo cp afc-gui-gtk4.ui /usr/share/afc-gui/
+sudo cp afc-gui.desktop /usr/share/applications/
+```
+To uninstall these:
+```
+sudo rm /usr/bin/afc-gui
+sudo rm -r /usr/share/afc-gui/
+sudo rm /usr/share/applications/afc-gui.desktop
+```
+To update the version run the uninstall commands, then the install ones.
 
 # Photo:
 
