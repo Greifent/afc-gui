@@ -132,7 +132,11 @@ def cpuTemp():
 		cpuTemp = psutil.sensors_temperatures()['k10temp'][0][1]
 		return(str(cpuTemp) + "°C")																			#gives temp in celsius
 	except:
-		return("Cannot get CPU current temps")
+		try:
+			cpuTemp = psutil.sensors_temperatures()['coretemp'][0][1]
+			return(str(cpuTemp) + "°C")		
+		except:
+			return("Cannot get current CPU temp")
 
 #============================================================================================
 #Updates the label that shows the temperature
