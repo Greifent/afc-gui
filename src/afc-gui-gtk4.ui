@@ -1,0 +1,117 @@
+<?xml version='1.0' encoding='UTF-8'?>
+<!-- Created with Cambalache 0.10.2 -->
+<interface>
+  <!-- interface-name afc-gui-gtk4.ui -->
+  <requires lib="gtk" version="4.6"/>
+  <object class="GtkWindow" id="GtkWindow">
+    <property name="default-height">400</property>
+    <property name="default-width">325</property>
+    <child>
+      <object class="GtkNotebook" id="notebook1">
+        <property name="scrollable">True</property>
+        <child>
+          <object class="GtkBox">
+            <property name="homogeneous">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="currenttemp"/>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="homogeneous">True</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkButton" id="full">
+                    <property name="label">100%</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="trequart">
+                    <property name="label">75%</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="half">
+                    <property name="label">50%</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="onequart">
+                    <property name="label">25%</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="off">
+                    <property name="label">0%</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="homogeneous">True</property>
+            <property name="orientation">vertical</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="customtempsinfo"/>
+            </child>
+            <child>
+              <object class="GtkEntry" id="inputtemps"/>
+            </child>
+            <child>
+              <object class="GtkButton" id="custom">
+                <property name="label">Set custom temps</property>
+              </object>
+            </child>
+            <child>
+              <object class="GtkButton" id="default">
+                <property name="label">Set default temps</property>
+              </object>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="homogeneous">True</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="modelinfo"/>
+            </child>
+            <child>
+              <object class="GtkLabel" id="active"/>
+            </child>
+          </object>
+        </child>
+        <child>
+          <object class="GtkBox">
+            <property name="homogeneous">True</property>
+            <property name="spacing">2</property>
+            <child>
+              <object class="GtkLabel" id="about"/>
+            </child>
+            <child>
+              <object class="GtkBox">
+                <property name="homogeneous">True</property>
+                <property name="orientation">vertical</property>
+                <property name="spacing">2</property>
+                <child>
+                  <object class="GtkButton" id="help-afc">
+                    <property name="label">Open asus-fan-control wiki page</property>
+                  </object>
+                </child>
+                <child>
+                  <object class="GtkButton" id="help-gui">
+                    <property name="label">Open afc-gui wiki page</property>
+                  </object>
+                </child>
+              </object>
+            </child>
+          </object>
+        </child>
+      </object>
+    </child>
+  </object>
+</interface>

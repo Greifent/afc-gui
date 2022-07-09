@@ -1,0 +1,250 @@
+#!/usr/bin/env python3
+
+import subprocess as sub
+import webbrowser as wb
+import gi
+import sys
+import psutil
+gi.require_version('Gtk', '4.0')
+gi.require_version('Adw', '1')
+from gi.repository import Gtk, GLib, Adw
+import os
+
+#=========================================================================================
+#define presets
+fullpres = "20 21 22 23 24 25 26 27"
+threequarter = "20 21 22 23 24 25"			#Some presets will be completed depending on the model of the laptop
+half = "20 21 22 23"
+onequarter = "20 21"
+off = "85 86 87 88 89 90 91 92"
+
+#preset = 0
+#==========================================================================================
+# Change .ui path if testing or not
+
+testing = True
+
+if testing:
+	pathhome = os.environ['HOME']
+	pathglade = pathhome + "/gitRepository/afc-gui/src/afc-gui-gtk4.ui"
+
+else:
+	pathglade = "/usr/share/afc-gui/afc-gui-gtk4.ui"
+
+#==========================================================================================
+#Define function for adjusting text
+def modelinfo_fun():
+
+	try:
+		modelinfo = sub.check_output("sudo asus-fan-control model-info", shell=True, stderr=sub.STDOUT)
+		modelinfo = modelinfo.decode("utf-8")
+		modelinfo = modelinfo.replace("\n", " \n")
+		modelinfo = "Those are the information of your model: \n" + modelinfo
+		return(modelinfo)
+
+	except sub.CalledProcessError:
+		return("Error, cannot get model info")
+
+def about_fun():
+
+	try:
+		about = sub.check_output("asus-fan-control about", shell=True, stderr=sub.STDOUT)
+		about = about.decode("utf-8")
+		about = about.replace("\n", " \n")
+		about = about.replace("https://github.com/dominiksalvet/asus-fan-control", "")
+		about = "Current version of asus-fan-control running: \n" + about
+		return(about)
+
+	except sub.CalledProcessError:
+		return("Error, cannot get about")
+
+def gettemps_fun():
+
+	try:
+		gettemps = sub.check_output("sudo asus-fan-control get-temps", shell=True, stderr=sub.STDOUT)
+		gettemps = gettemps.decode("utf-8")
+		gettemps = gettemps.replace("\n", " \n")
+		gettemps = "Those are the active temperatures: \n" + gettemps
+		return(gettemps)
+
+	except sub.CalledProcessError:
+		return("Error, cannot get temperatures")
+
+#End define function for adjusting text
+#==========================================================================================
+#From modelinfo_fun remove anything but the temperatures
+
+#modelinfotext = "Those are the information of your model: \n name GL553VD \n addresses 1335 \n default-temps 60 65 67 70 73 77 81 85 \n tested true" #This only for testing, it should be modelinfo_fun()
+modelinfotext = modelinfo_fun()
+indx = modelinfotext.find("default-temps")
+modelinfotext = modelinfotext[indx:]
+separator = "tested"
+modelinfotext = modelinfotext.split(separator, 1)[0]
+modelinfotext = modelinfotext.replace("default-temps", "")
+modelinfotext = modelinfotext.replace(" \n ", "")
+
+#==========================================================================================
+#Adjust presets
+#This should be the procedure to complete every preset, for full leave untouched and for off not sure.
+#This whole thing could be completely useless, since the default temp fluctuate a lot between the models, see github.com/dominiksalvet/asus-fan-control/blob/master/data/models for reference
+#before submitting to github see what dominiksalvet has to say about this.
+
+xThreeQuarter = modelinfotext[-8:]				#Take only the last x characters of modelinfo (for the last two numbers is -8: it give " 81 85")
+threequarter = threequarter + xThreeQuarter	#Add those x characters to threequarter to complete the presets
+											#Now half and onequarter will be complete as before (for half x=14, and for onequarter x=20 (add 6 for each interval))
+xHalf = modelinfotext[-14:]
+half = half + xHalf
+xOneQuarter = modelinfotext[-20:]
+onequarter = onequarter + xOneQuarter
+
+#==========================================================================================
+#check that user input temperatures are valid
+def validInput(userInput):
+	userInput = userInput.split()
+	if len(userInput) != 8: return False
+	print(len(userInput))
+	for i in range(len(userInput)):
+		print(i)
+		try:
+			int(userInput[i])
+		except:
+			return False
+	return True
+	
+#==========================================================================================
+#Function to update temperatures label
+def updateTemps():
+	active.set_label(gettemps_fun())
+	currenttemp()	#updates also the cuttent temp label
+
+##==========================================================================================
+##Function that sets the temperature
+def setTemps(temperatures):
+	updateTemps()
+	command = "sudo asus-fan-control set-temps " + temperatures
+	sub.call(command, shell=True)
+
+
+#==========================================================================================
+#Get CPU temperature
+def cpuTemp():
+	try:
+		cpuTemp = psutil.sensors_temperatures()['k10temp'][0][1]
+		return(str(cpuTemp) + "°C")																			#gives temp in celsius
+	except:
+		return("Cannot get CPU current temps")
+
+#============================================================================================
+#Updates the label that shows the temperature
+def currenttemp():
+	preset.set_label("Here you can select a preset \n(note that if the temperature is more than 85°C the fan will go to 100%). \n\n The current CPU temperature is: " + cpuTemp())
+
+#==========================================================================================
+#Function that update the value of current temperature, it is called every 5 seconds, or when a new temperature preset is applied 
+def refresh(dummy):
+	currenttemp()
+	return True
+
+
+#==========================================================================================
+#Class that contains the function that need to be executed when a button is clicked
+class ClickedFunction():
+
+	def full(dummy):
+		setTemps(fullpres)
+
+	def trequart(dummy):
+		setTemps(threequarter)
+
+	def half(dummy):
+		setTemps(half)
+
+	def onequart(dummy):
+		setTemps(onequarter)
+
+	def off(dummy):
+		setTemps(off)
+
+	def customtemps(dummy):
+		inputtemps = builder.get_object("inputtemps")
+		inputtemps = inputtemps.get_text()
+		if validInput(inputtemps):	
+			setTemps(inputtemps)
+
+	def defaulttemps(dummy):
+		setTemps("default")
+
+	def help_afc_pressed(dummy):
+		wb.open_new_tab('https://github.com/dominiksalvet/asus-fan-control/wiki')
+
+	def help_gui_pressed(dummy):
+		wb.open_new_tab('https://github.com/Greifent/afc-gui/wiki')
+
+#===============================================================================================
+class MainWindow(Adw.Application):
+
+	def __init__(self, **kwargs):
+		super().__init__(**kwargs)
+		self.connect('activate', self.on_activate)
+
+	def on_activate(self, app):
+
+		global builder
+		builder = Gtk.Builder()
+		builder.add_from_file(pathglade)
+		#Sets the notebook page label
+		notebookLabel = builder.get_object("notebook1")
+		notebookLabel.set_current_page(0)
+		notebookLabel.set_tab_label_text(notebookLabel.get_nth_page(notebookLabel.get_current_page()), "Preset")
+		notebookLabel.set_current_page(1)
+		notebookLabel.set_tab_label_text(notebookLabel.get_nth_page(notebookLabel.get_current_page()), "Main Page")
+		notebookLabel.set_current_page(2)
+		notebookLabel.set_tab_label_text(notebookLabel.get_nth_page(notebookLabel.get_current_page()), "Info Computer")
+		notebookLabel.set_current_page(3)
+		notebookLabel.set_tab_label_text(notebookLabel.get_nth_page(notebookLabel.get_current_page()), "About")
+		notebookLabel.set_current_page(0)
+		#============================================================================================
+		#Connect the buttons to the functions in ClickedFunction
+		#for the presets
+		builder.get_object("full").connect('clicked', ClickedFunction.full)
+		builder.get_object("trequart").connect('clicked', ClickedFunction.trequart)
+		builder.get_object("half").connect('clicked', ClickedFunction.half)
+		builder.get_object("onequart").connect('clicked', ClickedFunction.onequart)
+		builder.get_object("off").connect('clicked', ClickedFunction.off)
+		#for the other buttons
+		builder.get_object("custom").connect('clicked', ClickedFunction.customtemps)
+		builder.get_object("default").connect('clicked', ClickedFunction.defaulttemps)
+		builder.get_object("help-afc").connect('clicked', ClickedFunction.help_afc_pressed)
+		builder.get_object("help-gui").connect('clicked', ClickedFunction.help_gui_pressed)
+		#============================================================================================
+		#Sets labels, all the others are set directly from the XML
+		builder.get_object("customtempsinfo").set_label("In the following section you can choose to set your own temperatures \n (enter 8 values, in celsius, separed by a space and press Set custom temps) \n or reimpost the default ones")
+
+		modelinfo = builder.get_object("modelinfo")
+		modelinfo.set_label(modelinfotext)
+
+		about = builder.get_object("about")
+		about.set_label(about_fun())
+
+		global preset			#set as global to allow the presetlabel to work without passing the preset, passing it would be an issue since its called in various part of the program
+		preset = builder.get_object("currenttemp")
+		currenttemp()
+
+		global active
+		active = builder.get_object("active")
+		updateTemps()
+
+		#============================================================================================
+		#To update the temps
+		refresh(None)
+
+		GLib.timeout_add(5000, refresh, None)
+
+		#Show the window
+		self.win = builder.get_object("GtkWindow")
+		self.win.present()
+		self.win.set_application(app)
+
+#==========================================================================================
+app = MainWindow(application_id='com.afc.gui')
+app.run(sys.argv) 	#If sys.argv is missing it causes issue with the exception of the window manager

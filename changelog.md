@@ -1,3 +1,9 @@
+# 09-07-2022: Version 2.0
+
+ * Converted to gtk4
+ 
+ * Removed CPU_temperature_checker dependency
+
 # 07-02-2022: Version 1.5.1
 
  * Temperature is updated every 5 seconds
