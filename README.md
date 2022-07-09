@@ -4,6 +4,7 @@ GUI for the asus-fan-control project
 # Dependency:
 * asus-fan-control installed
 * python3
+* Gtk4, for those that are unable to install gtk4, [here](https://github.com/Greifent/afc-gui-gtk3/) there is the gtk3 version, with the same functionalities 
 
 # Installation:
  * If you have a previous version installed delete afc-gui and MAINGUI.glade from ~/.local/bin/ and then install using one of the methods below
