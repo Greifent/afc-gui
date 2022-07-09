@@ -1,3 +1,7 @@
+# TODO
+ * Convert to gtk4
+ * Change temperature monitoring dependency
+
 # 07-02-2022: Version 1.5.1
 
  * Temperature is updated every 5 seconds
