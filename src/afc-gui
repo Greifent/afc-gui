@@ -221,7 +221,7 @@ class MainWindow(Adw.Application):
 		builder.get_object("customtempsinfo").set_label("In the following section you can choose to set your own temperatures \n (enter 8 values, in celsius, separed by a space and press Set custom temps) \n or reimpost the default ones")
 
 		modelinfo = builder.get_object("modelinfo")
-		modelinfo.set_label(modelinfotext)
+		modelinfo.set_label(modelinfo_fun())
 
 		about = builder.get_object("about")
 		about.set_label(about_fun())
