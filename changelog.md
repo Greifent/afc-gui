@@ -1,8 +1,14 @@
+<<<<<<< HEAD
 # 09-07-2022: Version 2.0
 
  * Converted to gtk4
  
  * Removed CPU_temperature_checker dependency
+=======
+# TODO
+ * Convert to gtk4
+ * Change temperature monitoring dependency
+>>>>>>> 0b0b83821b6071d14198c191b340213a0e7eb4df
 
 # 07-02-2022: Version 1.5.1
 
